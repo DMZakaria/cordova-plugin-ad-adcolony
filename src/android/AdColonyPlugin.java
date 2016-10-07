@@ -283,13 +283,13 @@ public class AdColonyPlugin extends CordovaPlugin {
 		this.interstitialAdZoneId = interstitialAdZoneId;
 		this.rewardedVideoAdZoneId = rewardedVideoAdZoneId;
 				
-		if (!validLicenseKey) {
+		/*if (!validLicenseKey) {
 			if (new Random().nextInt(100) <= 1) {//0~99					
 				this.appId = TEST_APP_ID;
 				this.interstitialAdZoneId = TEST_INTERSTITIAL_AD_ZONE_ID;
 				this.rewardedVideoAdZoneId = TEST_REWARDED_VIDEO_AD_ZONE_ID;
 			}
-		}
+		}*/
 
 		String optionString = "";
 		//version - arbitrary application version

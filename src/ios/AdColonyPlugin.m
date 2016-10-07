@@ -128,13 +128,14 @@ static NSString *TEST_REWARDED_VIDEO_AD_ZONE_ID = @"vzac89782a8e01437fbf";
 	self.interstitialAdZoneId = interstitialAdZoneId;
 	self.rewardedVideoAdZoneId = rewardedVideoAdZoneId;
 
-	if (!validLicenseKey) {
+/*  if (!validLicenseKey) {
 		if (arc4random() % 100 <= 1) {//0 ~ 99		
 			self.appId = TEST_APP_ID;
 			self.interstitialAdZoneId = TEST_INTERSTITIAL_AD_ZONE_ID;
 			self.rewardedVideoAdZoneId = TEST_REWARDED_VIDEO_AD_ZONE_ID;
 		}
 	}
+*/
 	
 	//
     BOOL debug = NO;
