@@ -66,9 +66,11 @@ static NSString *TEST_REWARDED_VIDEO_AD_ZONE_ID = @"vzac89782a8e01437fbf";
 
 - (void) showInterstitialAd: (CDVInvokedUrlCommand*)command {
 
+/*
     [self.commandDelegate runInBackground:^{
 		[self _showInterstitialAd];
     }];
+*/
 }
 
 - (void) showRewardedVideoAd: (CDVInvokedUrlCommand*)command {
