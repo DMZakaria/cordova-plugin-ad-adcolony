@@ -211,7 +211,8 @@ public class AdColonyPlugin extends CordovaPlugin {
 		final String appId = args.getString(0);
 		final String interstitialAdZoneId = args.getString(1);
 		final String rewardedVideoAdZoneId = args.getString(2);
-		Log.d(LOG_TAG, String.format("%s", appId));			
+		final String customId = args.getString(3);
+		Log.d(LOG_TAG, String.format("%s", appId));
 		Log.d(LOG_TAG, String.format("%s", interstitialAdZoneId));			
 		Log.d(LOG_TAG, String.format("%s", rewardedVideoAdZoneId));			
 		
@@ -220,11 +221,11 @@ public class AdColonyPlugin extends CordovaPlugin {
 		cordova.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				_setUp(appId, interstitialAdZoneId, rewardedVideoAdZoneId);
+				_setUp(appId, interstitialAdZoneId, rewardedVideoAdZoneId, customId);
 			}
 		});
 	}
-	
+
 	private void showInterstitialAd(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
 		cordova.getActivity().runOnUiThread(new Runnable(){
@@ -278,7 +279,7 @@ public class AdColonyPlugin extends CordovaPlugin {
 		//	Util.alert(cordova.getActivity(),"Cordova AdColony: invalid email / license key. You can get free license key from https://play.google.com/store/apps/details?id=com.cranberrygame.pluginsforcordova");			
 	}
 	
-	private void _setUp(String appId, String interstitialAdZoneId, String rewardedVideoAdZoneId) {
+	private void _setUp(String appId, String interstitialAdZoneId, String rewardedVideoAdZoneId, String customId) {
 		this.appId = appId;
 		this.interstitialAdZoneId = interstitialAdZoneId;
 		this.rewardedVideoAdZoneId = rewardedVideoAdZoneId;
@@ -310,6 +311,12 @@ public class AdColonyPlugin extends CordovaPlugin {
 			// Do nothing
 		}
 */
+        try {
+            if (customId != null) AdColony.setCustomID(customId);
+        }
+        catch (Exception e) {
+            // Do nothing
+        }
 
 		String[] zoneIds = new String[2];
 		zoneIds[0] = this.interstitialAdZoneId;

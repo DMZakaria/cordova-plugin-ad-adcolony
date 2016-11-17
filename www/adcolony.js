@@ -15,7 +15,7 @@ module.exports = {
             [email, licenseKey]
         ); 
     },
-	setUp: function(appId, InterstitialAdZoneId, rewardedVideoAdZoneId) {
+	setUp: function(appId, InterstitialAdZoneId, rewardedVideoAdZoneId, customId) {
 		var self = this;	
         cordova.exec(
 			function (result) {
@@ -28,7 +28,7 @@ module.exports = {
 //cranberrygame start; deprecated
 						if (self.onFullScreenAdLoaded)
 							self.onFullScreenAdLoaded();
-//cranberrygame end						
+//cranberrygame end
 						if (self.onInterstitialAdLoaded)
 							self.onInterstitialAdLoaded();
 					}					
@@ -36,7 +36,7 @@ module.exports = {
 						self._loadedInterstitialAd = false;
 						self._isShowingInterstitialAd = true;
 
-//cranberrygame start; deprecated						
+//cranberrygame start; deprecated
 						if (self.onFullScreenAdShown)
 							self.onFullScreenAdShown();	
 //cranberrygame end
@@ -46,10 +46,10 @@ module.exports = {
 					else if (result == "onInterstitialAdHidden") {
 						self._isShowingInterstitialAd = false;
 					
-//cranberrygame start; deprecated					
+//cranberrygame start; deprecated
 						 if (self.onFullScreenAdHidden)
 							self.onFullScreenAdHidden();
-//cranberrygame end							
+//cranberrygame end
 						 if (self.onInterstitialAdHidden)
 							self.onInterstitialAdHidden();
 					}
@@ -80,7 +80,7 @@ module.exports = {
 				}
 				else {
 					//var event = result["event"];
-					//var location = result["message"];				
+					//var location = result["message"];
 					//if (event == "onXXX") {
 					//	if (self.onXXX)
 					//		self.onXXX(location);
@@ -91,8 +91,8 @@ module.exports = {
 				console.log('setUp failed.');
 			},
             'AdColonyPlugin',
-            'setUp',			
-			[appId, InterstitialAdZoneId, rewardedVideoAdZoneId]
+            'setUp',
+			[appId, InterstitialAdZoneId, rewardedVideoAdZoneId, customId || null]
         ); 
     },
 //cranberrygame start; deprecated

@@ -16,7 +16,8 @@
 @property NSString *appId;
 @property NSString *interstitialAdZoneId;
 @property NSString *rewardedVideoAdZoneId;
-	
+@property NSString *customId;
+
 - (void) setLicenseKey: (CDVInvokedUrlCommand*)command;
 - (void) setUp:(CDVInvokedUrlCommand*)command;
 - (void) showInterstitialAd:(CDVInvokedUrlCommand*)command;

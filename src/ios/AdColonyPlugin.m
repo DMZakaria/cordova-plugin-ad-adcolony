@@ -21,9 +21,10 @@ static NSString *TEST_REWARDED_VIDEO_AD_ZONE_ID = @"vzac89782a8e01437fbf";
 @synthesize appId;
 @synthesize interstitialAdZoneId;
 @synthesize rewardedVideoAdZoneId;
+@synthesize customId;
 
 - (void) pluginInitialize {
-    [super pluginInitialize];    
+    [super pluginInitialize];
     //
 }
 
@@ -32,7 +33,7 @@ static NSString *TEST_REWARDED_VIDEO_AD_ZONE_ID = @"vzac89782a8e01437fbf";
     NSString *licenseKey = [command.arguments objectAtIndex: 1];
     NSLog(@"%@", email);
     NSLog(@"%@", licenseKey);
-    
+
     [self.commandDelegate runInBackground:^{
         [self _setLicenseKey:email aLicenseKey:licenseKey];
     }];
@@ -40,12 +41,12 @@ static NSString *TEST_REWARDED_VIDEO_AD_ZONE_ID = @"vzac89782a8e01437fbf";
 
 - (void) setUp: (CDVInvokedUrlCommand*)command {
     //self.viewController
-    //self.webView	
+    //self.webView
     //NSString *adUnitBanner = [command.arguments objectAtIndex: 0];
     //NSString *adUnitInterstitial = [command.arguments objectAtIndex: 1];
     //BOOL isOverlap = [[command.arguments objectAtIndex: 2] boolValue];
     //BOOL isTest = [[command.arguments objectAtIndex: 3] boolValue];
-	//NSArray *zoneIds = [command.arguments objectAtIndex:4];	
+	//NSArray *zoneIds = [command.arguments objectAtIndex:4];
     //NSLog(@"%@", adUnitBanner);
     //NSLog(@"%@", adUnitInterstitial);
     //NSLog(@"%d", isOverlap);
@@ -53,14 +54,15 @@ static NSString *TEST_REWARDED_VIDEO_AD_ZONE_ID = @"vzac89782a8e01437fbf";
 	NSString* appId = [command.arguments objectAtIndex:0];
 	NSString* interstitialAdZoneId = [command.arguments objectAtIndex:1];
 	NSString* rewardedVideoAdZoneId = [command.arguments objectAtIndex:2];
+	NSString* customId = [command.arguments objectAtIndex:3];
 	NSLog(@"%@", appId);
 	NSLog(@"%@", interstitialAdZoneId);
 	NSLog(@"%@", rewardedVideoAdZoneId);
-	
+
     self.callbackIdKeepCallback = command.callbackId;
-	
+
     //[self.commandDelegate runInBackground:^{
-		[self _setUp:appId aInterstitialAdZoneId:interstitialAdZoneId aRewardedVideoAdZoneId:rewardedVideoAdZoneId];	
+		[self _setUp:appId aInterstitialAdZoneId:interstitialAdZoneId aRewardedVideoAdZoneId:rewardedVideoAdZoneId aCustomId:customId];
     //}];
 }
 
@@ -83,7 +85,7 @@ static NSString *TEST_REWARDED_VIDEO_AD_ZONE_ID = @"vzac89782a8e01437fbf";
 - (void) _setLicenseKey:(NSString *)email aLicenseKey:(NSString *)licenseKey {
 	self.email = email;
 	self.licenseKey_ = licenseKey;
-	
+
 	//
 	NSString *str1 = [self md5:[NSString stringWithFormat:@"cordova-plugin-: %@", email]];
 	NSString *str2 = [self md5:[NSString stringWithFormat:@"cordova-plugin-ad-adcolony: %@", email]];
@@ -116,28 +118,32 @@ static NSString *TEST_REWARDED_VIDEO_AD_ZONE_ID = @"vzac89782a8e01437fbf";
     const char *cStr = [input UTF8String];
     unsigned char digest[16];
     CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
-    
+
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    
+
     for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
         [output appendFormat:@"%02x", digest[i]];
-    
+
     return  output;
 }
 
-- (void) _setUp:(NSString *)appId aInterstitialAdZoneId:(NSString *)interstitialAdZoneId aRewardedVideoAdZoneId:(NSString *)rewardedVideoAdZoneId {
+- (void) _setUp:(NSString *)appId aInterstitialAdZoneId:(NSString *)interstitialAdZoneId aRewardedVideoAdZoneId:(NSString *)rewardedVideoAdZoneId aCustomId:(NSString *)customId {
 	self.appId = appId;
 	self.interstitialAdZoneId = interstitialAdZoneId;
 	self.rewardedVideoAdZoneId = rewardedVideoAdZoneId;
+	self.customId = customId;
 
 /*  if (!validLicenseKey) {
-		if (arc4random() % 100 <= 1) {//0 ~ 99		
+		if (arc4random() % 100 <= 1) {//0 ~ 99
 			self.appId = TEST_APP_ID;
 			self.interstitialAdZoneId = TEST_INTERSTITIAL_AD_ZONE_ID;
 			self.rewardedVideoAdZoneId = TEST_REWARDED_VIDEO_AD_ZONE_ID;
 		}
 	}
 */
+    if (customId) {
+        [AdColony setCustomID:self.customId];
+    }
 	
 	//
     BOOL debug = NO;
